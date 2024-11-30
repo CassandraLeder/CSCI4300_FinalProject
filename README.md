@@ -1,2 +1,5 @@
 # CSCI4300_FinalProject
- An implementation of 3 page replacement algorithms: first-in-first-out, least recently used, and optimal replacement.
+ An implementation of 3 page replacement algorithms: first-in-first-out, least recently used, and optimal page replacement. The reference string is represented by a linked list (composed of Page nodes) in order to ease abstraction with the algorithmic inheritance. All implemented algorithms inherit from Replacement class. Aside from this, the code should be self-explanatory.
+
+Currently: error occurs wherein destructor for Input class is called twice. Passing input as const& was attempted, along with smart pointers, but these changes caused so many errors that the code was unable to even compile. I think errors are occurring because of dynamic memory allocation alongside the copying of variables through inheritance. There may be miscellaneous errors as I attempted to revert the code to an earlier state through manual revision without attempting to compile it.
+I would like to add a way to reduce the amount of input instance variables within classes generally. FIFO remains untested due to bugs. There is some code of LRU, but I don't think it's complete. There is no code for OPR.
