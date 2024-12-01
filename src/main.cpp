@@ -14,7 +14,7 @@
     GLOBAL CONSTANTS
 */
 // for testing
-const static std::string LIST_OF_FILES = "./src/files.txt";
+const static std::string LIST_OF_FILES = "./files.txt";
 
 
 int main(int argc, char **argv) {
@@ -32,26 +32,28 @@ int main(int argc, char **argv) {
 
     // main program loop
     for (int i = 0; i < file_reader.MAX_FILES; i++) {
-        Input in(file_contents[i]);
-        in.fill(); // add reference to linked list
+        Input *in = new Input(file_contents[i]);
+        in->fill(); // add reference to linked list
 
         // find algorithm type
         // FIFO selected
-        if (in.algorithm_type == 'F') { 
-            FIFO fifo(in);  // an issue occurs here????
+        if (in->algorithm_type == 'F') { 
+            FIFO fifo(in->getFirstPage(), in->frame_size);  // an issue occurs here????
             fifo.run();
         }
-        else if (in.algorithm_type == 'L') {
-            LRU lru(in);
+        else if (in->algorithm_type == 'L') {
+            LRU lru(in->getFirstPage(), in->frame_size);
             lru.run();
         }
-        else if (in.algorithm_type == 'O') {
-            OPT opt(in);
+        else if (in->algorithm_type == 'O') {
+            OPT opt(in->getFirstPage(), in->frame_size);
             opt.run();
         }
         else {
             throw std::invalid_argument("\nThe algorithm type in the reference string does not match any of the avaliable algorithms.\n");
         }
+
+        delete in;
     }
 
     delete[] file_contents;

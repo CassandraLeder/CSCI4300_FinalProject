@@ -7,8 +7,8 @@ FIFO::FIFO() : Replacement() {
 
 // calls super constructor
 // avoid data being passed around
-FIFO::FIFO(Input reference) : Replacement(reference) {
-    age = new int[Replacement::getFrame().FRAME_SIZE - 1]();
+FIFO::FIFO(Page* head, int frame_size) : Replacement(head, frame_size) {
+    age = new int[frame_size - 1]();
 }
 
 FIFO::~FIFO() {

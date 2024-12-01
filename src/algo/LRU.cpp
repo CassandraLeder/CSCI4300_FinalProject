@@ -8,8 +8,8 @@ LRU::LRU() : Replacement() {
 }
 
 // this constructor calls super constructor
-LRU::LRU(const Input& reference) : Replacement(reference) {
-    last_used = new int[Replacement::getFrame().FRAME_SIZE - 1]();
+LRU::LRU(Page* head, int frame_size) : Replacement(head, frame_size) {
+    last_used = new int[frame_size - 1]();
 }
 
 LRU::~LRU() {

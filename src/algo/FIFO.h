@@ -6,7 +6,7 @@
 class FIFO : public Replacement {
     public:
         FIFO();
-        FIFO(Input);
+        FIFO(Page*, int);
         ~FIFO();
         void run();
 

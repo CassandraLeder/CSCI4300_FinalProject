@@ -8,7 +8,7 @@
 class Replacement {
     public:
         Replacement();
-        Replacement(Input);
+        Replacement(Page*, int);
         // abstract parts of the algorithm that can be shared
         void setupFrame();
         void skip();

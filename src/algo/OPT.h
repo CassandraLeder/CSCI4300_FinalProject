@@ -6,7 +6,7 @@
 class OPT : public Replacement {
     public:
         OPT();
-        OPT(const Input&);
+        OPT(Page*, int);
         ~OPT();
         void run();
         Page* predict();

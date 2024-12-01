@@ -4,9 +4,9 @@ Replacement::Replacement() {
     list = nullptr;
 }
 
-Replacement::Replacement(Input reference) {
-    list = reference.getFirstPage();
-    frame_obj = Frame(reference);
+Replacement::Replacement(Page* head, int frame_size) {
+    list = head;
+    frame_obj = Frame(frame_size);
 }
 
 // shared algorithmic steps

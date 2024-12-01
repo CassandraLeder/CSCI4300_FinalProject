@@ -1,3 +1,3 @@
-../src/files/FIFO.txt
-../src/files/LRU.txt
-../src/files/OPT.txt
+./files/FIFO.txt
+./files/LRU.txt
+./files/OPT.txT

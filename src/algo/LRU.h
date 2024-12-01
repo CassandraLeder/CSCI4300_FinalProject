@@ -6,7 +6,7 @@
 class LRU : public Replacement {
     public:
         LRU();
-        LRU(const Input&);
+        LRU(Page*, int);
         ~LRU();
         void run();
         void use(Frame, char);

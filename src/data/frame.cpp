@@ -9,11 +9,15 @@ Frame::Frame() {
 }
 
 // actual constructor
-Frame::Frame(Input in) {
-    frame = new std::string[in.frame_size]();
+Frame::Frame(int frame_size) {
+    FRAME_SIZE = frame_size;
+    frame = new std::string[frame_size]();
     page_fault = 0;
-    this->in = in;
-    Frame::FRAME_SIZE = in.frame_size;
+}
+
+// destructor
+Frame::~Frame() {
+    delete[] frame;
 }
 
 bool Frame::isEmpty() {

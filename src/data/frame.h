@@ -4,10 +4,9 @@
 
 class Frame {
     public:
-        int FRAME_SIZE;
         Frame();
-        Frame(Input);
-        ~Frame() = default;
+        Frame(int);
+        ~Frame();
         bool isEmpty();
         bool isEmpty(int);
         int findEmptyFrame();
@@ -15,10 +14,10 @@ class Frame {
         void replace(char, int);
         std::string* getFrame();
         char lookupFrame(int);
+        int FRAME_SIZE;
         int page_fault;   
 
     private:
-        Input in;
         std::string* frame;   
 
 };

@@ -6,7 +6,7 @@ OPT::OPT() : Replacement() {
     
 }
 // calls super constructor
-OPT::OPT(const Input& reference) : Replacement(reference) {
+OPT::OPT(Page* head, int frame_size) : Replacement(head, frame_size) {
 
 }
 
