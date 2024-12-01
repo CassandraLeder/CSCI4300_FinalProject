@@ -19,7 +19,7 @@ void OPT::run() {
     // setup
     Page* page = Replacement::getList();
     Page* next = page->next;
-    Frame frame_obj = Replacement::getFrame();
+    Frame* frame_obj = Replacement::getFrame();
     Replacement::setupFrame();
 
     while (next != nullptr) {

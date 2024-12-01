@@ -13,6 +13,7 @@ class FIFO : public Replacement {
     private:
         int *age;
         // helper method for run()
-        void age_pages(Frame);
+        int findOldestIndex(int*, int);
+        void age_pages(Frame*);
 
 };

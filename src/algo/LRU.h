@@ -9,7 +9,7 @@ class LRU : public Replacement {
         LRU(Page*, int);
         ~LRU();
         void run();
-        void use(Frame, char);
+        void use(Frame*, char);
     private:
         int *last_used;
 };

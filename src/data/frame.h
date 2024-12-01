@@ -8,7 +8,6 @@ class Frame {
         Frame(int);
         ~Frame();
         bool isEmpty();
-        bool isEmpty(int);
         int findEmptyFrame();
         void add(char, int);
         void replace(char, int);
@@ -19,5 +18,4 @@ class Frame {
 
     private:
         std::string* frame;   
-
 };

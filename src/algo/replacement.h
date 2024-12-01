@@ -9,23 +9,23 @@ class Replacement {
     public:
         Replacement();
         Replacement(Page*, int);
+        ~Replacement();
         // abstract parts of the algorithm that can be shared
+        bool searchDuplicate(std::string*, int, char);
         void setupFrame();
         void skip();
         // only difference in page replacement algorithms is how they choose to replace a page
 
         // getters 
         Page* getList();
-        Frame getFrame();
+        Frame* getFrame();
         std::map<char, std::string> getMoves();
         
         // setters
-        void addMove(char, std::string);
-        void setFrame(Frame);
-
+        void addMove(char, std::string, bool = true);
 
     private:
-        Frame frame_obj;
+        Frame* frame_obj;
         Printer printer;
         Page* list;
         std::map<char, std::string> moves;

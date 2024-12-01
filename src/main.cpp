@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
         // find algorithm type
         // FIFO selected
         if (in->algorithm_type == 'F') { 
-            FIFO fifo(in->getFirstPage(), in->frame_size);  // an issue occurs here????
+            FIFO fifo(in->getFirstPage(), in->frame_size); 
             fifo.run();
         }
         else if (in->algorithm_type == 'L') {
