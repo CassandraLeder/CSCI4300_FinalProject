@@ -1,5 +1,5 @@
 #include "frame.h"
-#include <iostream> // delete this
+
 // constructor
 // default (DON'T USE)
 Frame::Frame() {

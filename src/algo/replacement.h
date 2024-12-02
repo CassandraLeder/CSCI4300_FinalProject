@@ -1,6 +1,6 @@
 #pragma once
-#include <algorithm> // std::max_element
-#include <map>
+#include <algorithm> // std::max_element(), std::find(), std::distance()
+#include <map> // used for keeping track of moves
 
 #include "..\data\frame.h"
 #include "..\data\printer.h"

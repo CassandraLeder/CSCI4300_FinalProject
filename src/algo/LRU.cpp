@@ -1,7 +1,5 @@
 #include "LRU.h"
 
-/* TODO: GET FIFO WORKING FIRST */
-
 // fake constructor
 LRU::LRU() : Replacement() {
     last_used = nullptr;
@@ -9,44 +7,51 @@ LRU::LRU() : Replacement() {
 
 // this constructor calls super constructor
 LRU::LRU(Page* head, int frame_size) : Replacement(head, frame_size) {
-    last_used = new int[frame_size - 1]();
+    last_used = new int[frame_size]();
 }
 
 LRU::~LRU() {
     delete[] last_used;
 }
 
-void LRU::use(Frame* frame_obj, char data) {
-    for (int i = 0; i < frame_obj->FRAME_SIZE - 1; i++) {
-        if (frame_obj->lookupFrame(i) == data) {
-            ++last_used[i];
-        }
-    }
+void LRU::use(std::string* frame, int frame_size, char data) {
+    // find the index of data in frame
+    int index = std::distance(frame, std::find(frame, frame + frame_size, data));
+    ++last_used[index];
 }
 
 void LRU::run() {
     // setup
-    Page* page = Replacement::getList();
+    setupFrame();
+    Page* page = getList();
     Page* next = page->next;
-    Frame* frame_obj = Replacement::getFrame();
-    Replacement::setupFrame();
+    Frame* frame_obj = getFrame();
 
     // main loop of algorithm
     while (next != nullptr) {
         // if current page already in frame
-        if (frame_obj->getFrame()->find(page->data)) {
-            Replacement::skip();
-            use(frame_obj, page->data);
+        if (searchDuplicate(frame_obj->getFrame(), frame_obj->FRAME_SIZE, page->data)) {
+            use(frame_obj->getFrame(), frame_obj->FRAME_SIZE, page->data);
+            skip();
+            
+            // onto next page
+            page = page->next;
+            next = page->next;
+
+            continue;
         }
         else { // if page not in frame
             // must replace a page
-            int least_used = *std::min_element(last_used, last_used + (frame_obj->FRAME_SIZE - 1));
+
+            // find index of min element of last_used array
+            int least_used = std::distance(last_used, 
+                                        std::min_element(last_used, last_used + (frame_obj->FRAME_SIZE)));
             frame_obj->replace(page->data, least_used);
-            last_used[frame_obj->getFrame()->find(least_used)] = 0; // reset last used
+            last_used[least_used] = 0; // reset last used
         }
 
         // onto next page
         page = page->next;
-        next = page;
+        next = page->next;
     }
 }
