@@ -1,7 +1,6 @@
 #pragma once
 #include <algorithm> // std::max_element(), std::find(), std::distance()
 #include <map> // used for keeping track of moves
-
 #include "..\data\frame.h"
 #include "..\data\printer.h"
 
@@ -19,6 +18,7 @@ class Replacement {
         // getters 
         Page* getList();
         Frame* getFrame();
+        Printer* getPrinter();
         std::map<char, std::string> getMoves();
         
         // setters

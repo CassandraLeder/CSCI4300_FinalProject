@@ -4,7 +4,7 @@
 #include <memory>
 #include "page.h"
 
-// represent input string as a linked list using smart pointers
+// represent input string as a linked list 
 class Input {
     public:
         Input();

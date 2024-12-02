@@ -1,8 +1,6 @@
 #include "OPT.h"
 #include <array>
 
-/* TODO: LEARN HOW TO IMPLEMENT THIS LOL */
-
 OPT::OPT() : Replacement() {
 }
 
@@ -10,27 +8,28 @@ OPT::OPT() : Replacement() {
 OPT::OPT(Page* head, int frame_size) : Replacement(head, frame_size) {
 }
 
-std::pair<int, char> OPT::returnGreatestPair(std::array<std::pair<int, char>, 500> list) {
-    return (list[0]);
+// greatest element will be sorted at the very bottom of array
+std::pair<int, char> OPT::returnGreatestPair(std::array<std::pair<int, char>, size> list) {
+    return (list[(size - 1)]);
 }
 
-std::pair<int, char> OPT::returnLowestPair(std::array<std::pair<int, char>, 500> list) {
-    return (list[getFrame()->FRAME_SIZE]);
+// least element is equal to bottom of array - frame_size
+std::pair<int, char> OPT::returnLowestPair(std::array<std::pair<int, char>, size> list) {
+    return (list[(size - 1) - getFrame()->FRAME_SIZE]);
 }
 
 // create a prediction array and return most likely pages
-std::array<std::pair<int, char>, 500>  
+std::array<std::pair<int, char>, OPT::size>  
 OPT::predict(Page* current_head) {
-    const int MAX_SIZE = 500;
 
-    if (getFrame()->FRAME_SIZE > MAX_SIZE) {
+    if (getFrame()->FRAME_SIZE > size) {
         throw std::invalid_argument("\nFrame size greater than error size. See OPR.cpp\n");
     }
 
-    std::array<std::pair<int, char>, MAX_SIZE> values;
+    std::array<std::pair<int, char>, size> values;
     std::map<char, int> predictions;
 
-    while (current_head->next != nullptr) {
+    while (current_head != nullptr) {
         ++predictions[current_head->data];
         current_head = current_head->next;
     }
@@ -53,22 +52,20 @@ void OPT::run() {
     // setup
     setupFrame();
     Page* page = getList();
-    Page* next = page->next;
     Frame* frame_obj = getFrame();
 
-    while (next != nullptr) {
+    while (page != nullptr) {
         
         // already loaded in frame
         if (searchDuplicate(frame_obj->getFrame(), frame_obj->FRAME_SIZE, page->data)) {
             skip();
             page = page->next;
-            next = page->next;
             continue;
         }
         else { // replacement
             auto predictions = predict(page);
                         
-            // we want to replace lowest element in the list with the highest element 
+            // we want to replace lowest element in the sorted list with the highest element 
             auto highest_pair = returnGreatestPair(predictions);
             auto lowest_pair = returnLowestPair(predictions);
             int lowest_index = 0;
@@ -82,7 +79,7 @@ void OPT::run() {
             frame_obj->replace(highest_pair.second, lowest_index);
         }
 
+        // advance pointer
         page = page->next;
-        next = page->next;
     }
 }

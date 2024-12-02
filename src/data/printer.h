@@ -1,13 +1,15 @@
 #pragma once
 #include <iostream>
-#include "frame.h"
-#include "input.h"
+#include <iomanip>
+#include "..\data\frame.h"
 
-// displays frames because I am lazy
+// displays frames and data because I am lazy
 
 class Printer {
     public:
-        void display(Frame);
-        void display(Input);
-        void display(Frame, Input);
+        // header and closer will be printed by main and display methods will be printed within classes
+        void display_header(char);
+        void display(std::vector<std::vector<std::string>>);
+        void display(Page*);
+        void display_closer(int);
 };

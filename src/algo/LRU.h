@@ -9,7 +9,9 @@ class LRU : public Replacement {
         LRU(Page*, int);
         ~LRU();
         void run();
-        void use(std::string*, int, char);
     private:
+        void use(std::string*, int, char);
+        Page* setupFrame(Frame*, Page*);
         int *last_used;
+
 };

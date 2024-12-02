@@ -61,10 +61,10 @@ std::string* Reader::readFiles() {
         throw std::invalid_argument("\nList of file names was null.\n");
     }
 
-    std::string *contents = new std::string[MAX_FILES - 1]();
+    std::string *contents = new std::string[MAX_FILES]();
 
     // for every file in files
-    for (int i = 0; i < MAX_FILES - 1; i++) {
+    for (int i = 0; i < MAX_FILES; i++) {
         // get contents
         contents[i] = readFile(files[i]);
     }

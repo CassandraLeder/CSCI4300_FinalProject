@@ -12,6 +12,9 @@ Frame::Frame() {
 Frame::Frame(int frame_size) {
     FRAME_SIZE = frame_size;
     frame = new std::string[frame_size]();
+    for (int i = 0; i < FRAME_SIZE; i++) {
+        frame[i] = "";
+    }
     page_fault = 0;
 }
 
@@ -49,6 +52,8 @@ void Frame::add(char data, int position) {
     // this should require error checking but c++ has garbage values so it's easier to assume position already empty
     frame[position] = std::string(1, data); // convert char->string
     ++page_fault;
+
+    populateHistory();
 }
 
 void Frame::replace(char data, int position) {
@@ -57,8 +62,16 @@ void Frame::replace(char data, int position) {
     }
 
     // replacement is valid
-    frame[position] = std::to_string(data);
+    frame[position] = std::string(1, data);
     ++page_fault;
+
+    populateHistory();
+}
+
+void Frame::skipHistory() {
+    std::vector<std::string> data;
+    data.push_back(",");
+    history.push_back(data);
 }
 
 // getter
@@ -66,6 +79,22 @@ std::string* Frame::getFrame() {
     return frame;
 }
 
+std::vector<std::vector<std::string>> Frame::getHistory() {
+    return history;
+}
+
 char Frame::lookupFrame(int position) {
     return frame[position][0];
+}
+
+
+
+void Frame::populateHistory() {
+    std::vector<std::string> data;
+
+    for (int i = 0; i < FRAME_SIZE; i++) {
+        data.push_back(frame[i]);
+    }
+
+    history.push_back(data);
 }

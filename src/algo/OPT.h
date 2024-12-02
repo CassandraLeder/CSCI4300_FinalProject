@@ -8,10 +8,11 @@ class OPT : public Replacement {
         OPT();
         OPT(Page*, int);
         void run();
+        static const int size = 20;
 
     private:
-        std::pair<int, char> returnGreatestPair(std::array<std::pair<int, char>, 500>);
-        std::pair<int, char> returnLowestPair(std::array<std::pair<int, char>, 500>);
+        std::pair<int, char> returnGreatestPair(std::array<std::pair<int, char>, size>);
+        std::pair<int, char> returnLowestPair(std::array<std::pair<int, char>, size>);
         // I do not know how to avoid hardcoding the size here
-        std::array<std::pair<int,char>, 500> predict(Page*);
+        std::array<std::pair<int,char>, size> predict(Page*);
 };

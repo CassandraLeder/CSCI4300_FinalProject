@@ -14,6 +14,7 @@ class FIFO : public Replacement {
         int *age;
         // helper method for run()
         int findOldestIndex(int*, int);
-        void age_pages(Frame*);
+        void age_pages(std::string*, int);
+        void age_setup(int);
 
 };

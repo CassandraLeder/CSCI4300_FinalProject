@@ -15,13 +15,21 @@ FIFO::~FIFO() {
     delete[] age;
 }
 
+
+
 // ages all existing pages within frame
 // helper method for run()
-void FIFO::age_pages(Frame* frame_obj) {
-    for (int i = 0; i < frame_obj->FRAME_SIZE; i++) {
-        if (!frame_obj->getFrame()[i].empty()) {
+void FIFO::age_pages(std::string* frame, int frame_size) {
+    for (int i = 0; i < frame_size; i++) {
+        if (!frame[i].empty()) {
             ++age[i];
         }
+    }
+}
+
+void FIFO::age_setup(int frame_size) {
+    for (int i = 0; i < frame_size; i++) {
+        age[i] += frame_size - i; // first element is frame size old and so on
     }
 }
 
@@ -36,22 +44,16 @@ void FIFO::run() {
     // setup
     setupFrame();
     Page* page = getList();
-    Page* next = page->next;
     Frame* frame_obj = getFrame();
-
-    // age all of the pre-loaded in pages
-    for (int i = 0; i < frame_obj->FRAME_SIZE -1; i++) {
-        age_pages(frame_obj);
-    }
+    age_setup(frame_obj->FRAME_SIZE);
 
     // main loop of algorithm
-    while (next != nullptr) {
+    while (page != nullptr) {
         // if current page already in frame
         if (searchDuplicate(frame_obj->getFrame(), frame_obj->FRAME_SIZE, page->data)) {
             skip();
+            age_pages(frame_obj->getFrame(), frame_obj->FRAME_SIZE);
             page = page->next;
-            next = page->next;
-            age_pages(frame_obj);
             continue;
         }
         else { // if page not in frame
@@ -65,9 +67,8 @@ void FIFO::run() {
         }
         
         // age all pages
-        age_pages(frame_obj);
+        age_pages(frame_obj->getFrame(), frame_obj->FRAME_SIZE);
         // onto next page
         page = page->next;
-        next = page->next;
     }
 }
